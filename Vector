@@ -1,0 +1,118 @@
+/******************************************************************************
+
+ Vector implementation
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+
+
+
+template<typename T>
+class Vector {
+  
+  private:
+  int Capacity ;
+  int Size;
+  T * arr;
+  void reSize();
+  
+  public:
+  
+  Vector();
+  Vector(size_t size);
+  void push_back(const T &data);
+  T pop_back();
+  int size();
+  bool isempty();
+  
+  const T& operator [](const size_t& pos);
+  void print();
+};
+
+
+template<typename T>
+Vector<T>::Vector(){
+    Size =0;
+    Capacity =1;
+    arr = new T[Capacity];
+}
+template<typename T>
+const T& Vector<T>::operator [](const size_t& pos) {
+    return arr[pos];
+}
+
+template<typename T>
+void Vector<T>::print(){
+  for(int i =0;i<Size;i++){
+    cout<<arr[i]<<endl;
+  }
+}
+template<typename T>
+Vector<T>::Vector(size_t size) {
+  Size =0;
+  Capacity = size;
+  arr = new T[Capacity];
+}
+
+template<typename T>
+int Vector<T>::size(){
+    return Size;
+} 
+
+template<typename T>
+bool Vector<T>::isempty(){
+  return Size == 0;
+}
+
+template<typename T>
+void Vector<T>::reSize(){
+    
+  //cout<<"resize called"<< endl;    
+  int newCapacity = Size*2;
+  T* arr2 = new T[newCapacity];
+  for(int i =0;i<Capacity;i++){
+    arr2[i] = arr[i];
+  }
+  //if(arr != NULL) delete arr;
+  Capacity = newCapacity;
+  delete[] arr;
+  arr = arr2;
+}
+
+template<typename T>
+void Vector<T>::push_back(const T &data){
+  
+ 
+  if (Capacity == Size){
+      reSize();
+  }
+  
+  
+  arr[Size] = data;
+  Size++;
+  
+  
+}
+
+
+
+int main()
+{
+   
+    Vector<int> vec(1);
+    for(int i = 0; i < 100; i++) {
+        vec.push_back(i);
+    }
+    
+    vec.print();
+    cout << vec[99];
+
+    return 0;
+}
+
+
+
