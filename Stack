@@ -1,0 +1,77 @@
+#include <iostream>
+#include<string.h>
+
+#define SIZE 10
+
+using namespace std;
+
+template <class T>
+class Stack {
+  
+  private:
+     T *arr;
+     int top;
+     int capacity;
+     
+  public:
+  
+     Stack();
+     T pop();
+     int push(T elem);
+     T peek();
+     bool isEmpty();
+     bool isFull();
+     
+};
+
+template<class T>
+Stack<T>::Stack(){
+  arr = new T[SIZE];
+  top = -1;
+  capacity = SIZE-1;
+}
+
+template<class T>
+int Stack<T>:: push(T elem){
+  
+  if(isFull()){
+    cout<<"Overflow";
+    return -1;
+  }
+  arr[++top] = elem;
+  return top;
+}
+
+template<class T>
+T Stack<T>::pop(){
+  
+  if(isEmpty()){
+     return NULL;
+  }
+  T elem = arr[top];
+  top--;
+  return elem;
+}
+
+template<class T>
+bool Stack<T>::isEmpty(){
+  return top == -1;
+}
+
+template<class T>
+bool Stack<T>::isFull(){
+  return top == capacity-1;
+}
+
+
+
+
+
+int main() {
+  Stack<string> st;
+  
+  
+  cout<<st.push("sowmysa")<<endl;
+  cout<<st.push("vijay")<<endl;
+  cout<<st.pop();
+}
